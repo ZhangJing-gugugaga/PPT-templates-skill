@@ -45,8 +45,8 @@ git clone https://github.com/ZhangJing-gugugaga/PPT-templates-skill.git populati
 
 ```
 populating-office-templates/
-  ├── SKILL.md              # 技能的核心操作规范（AI 自动阅读）
-  ├── README.md             # 本说明文档（人类阅读）
+  ├── SKILL.md              # 技能核心规范文件
+  ├── README.md             # 项目说明文档
   ├── Templates/            # 存放您的原始 PPT 模板（如 0008, 0010 模板）
   ├── Result/               # 存放最终生成的 PPT 结果文件
   ├── Tmp/                  # 运行期间自动存储临时映射文件的缓存区
