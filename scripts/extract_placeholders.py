@@ -34,9 +34,7 @@ def extract_placeholders(ppt_path):
                     node_type = node.get("type")
                     node_text = node.get("text", "").strip()
                     
-                    # Upgraded: support cell and table-cell to extract table contents
                     if node_type in ["textbox", "shape", "cell", "table-cell"] and node_text:
-                        # Ignore short tracking hashes or empty spaces
                         if len(node_text) > 1 and not re.match(r"^[0-9a-fA-F]{30,}$", node_text):
                             shapes_info.append({
                                 "path": node.get("path"),
@@ -66,7 +64,9 @@ if __name__ == "__main__":
         sys.exit(1)
     
     ppt = sys.argv[1]
-    out = sys.argv[2] if len(sys.argv) > 2 else "placeholders.json"
+    # Enforce default to local Tmp directory if it exists
+    default_out = "Tmp/placeholders.json" if os.path.exists("Tmp") else "placeholders.json"
+    out = sys.argv[2] if len(sys.argv) > 2 else default_out
     
     data = extract_placeholders(ppt)
     if data:

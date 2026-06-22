@@ -43,8 +43,9 @@ def inject_text(ppt_path, mapping_json):
 
     print(f"Prepared {len(commands)} text replacement commands.")
     
-    # Write to a temp json file to run officecli batch
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False, encoding="utf-8") as tmp:
+    # Enforce temporary file creation within the local Tmp/ folder if it exists
+    temp_dir = "Tmp" if os.path.exists("Tmp") else None
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", dir=temp_dir, delete=False, encoding="utf-8") as tmp:
         json.dump(commands, tmp, ensure_ascii=False, indent=2)
         tmp_name = tmp.name
 

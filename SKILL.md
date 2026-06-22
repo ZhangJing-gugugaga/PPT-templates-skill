@@ -38,11 +38,11 @@ Always copy the template first, compile all clone (`add --from`) and `remove` co
 
 ### Step 2: Inspect Placeholders and Stable IDs
 Run the extraction script to map the slide textboxes.
-`python scripts/extract_placeholders.py my_presentation.pptx placeholders.json`
+`python scripts/extract_placeholders.py Templates/my_template.pptx Tmp/placeholders.json`
 This generates a schema mapping absolute paths (e.g., `/slide[1]/shape[@id=100002]`) to their current placeholder values.
 
 ### Step 3: Map Content and Inject
-Map your business text into the placeholders. Create an injection JSON file containing a list of `set` commands:
+Map your business text into the placeholders. Create an injection JSON file (saved inside `Tmp/`) containing a list of `set` commands:
 ```json
 [
   {
@@ -52,8 +52,9 @@ Map your business text into the placeholders. Create an injection JSON file cont
   }
 ]
 ```
-Apply the changes in a single transaction:
-`officecli batch my_presentation.pptx --input updates.json --stop-on-error`
+Apply the changes in a single transaction to the file in `Result/`:
+`python scripts/batch_injector.py Result/my_output.pptx Tmp/mapping.json`
+*(Or run `officecli batch Result/my_output.pptx --input Tmp/updates.json --stop-on-error`)*
 
 ## Common Mistakes & Red Flags
 - ❌ **Matching text by search (find=...) when unique IDs are available.** Newline characters and runtime spans split the string in OOXML, causing match failures.
