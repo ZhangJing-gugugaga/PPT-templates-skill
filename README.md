@@ -33,12 +33,28 @@
 populating-office-templates/
   ├── SKILL.md              # 技能的核心操作说明与逻辑约束流程
   ├── README.md             # 本说明文件
+  ├── Templates/            # 存放原始模板，方便反复使用（已存入 0008, 0010 模板）
+  ├── Result/               # 存放最终生成的 PPT 结果文件（已存入生息守护路演PPT）
+  ├── Tmp/                  # 运行脚本期间生成临时文件（如占位符映射、批量更新等临时文件）的缓存区
+  ├── images/               # 存放展示图片
   ├── examples/
   │   └── ppt_bp_mapping_example.json  # 数据填充 JSON 样例
   └── scripts/
       ├── extract_placeholders.py      # 深度优先提取占位符路径和ID的脚本
       └── batch_injector.py            # 读取JSON配置并执行单事务批量注入的脚本
 ```
+
+---
+
+## 🖼️ 效果示例 (Visual Examples)
+
+以下为使用本工作流处理前后的幻灯片页面对比：
+
+````carousel
+![修改前（模板原始状态）](images/模板示例.png)
+<!-- slide -->
+![修改后（使用本技能注入中文业务数据后）](images/skills后的PPT.png)
+````
 
 ---
 
