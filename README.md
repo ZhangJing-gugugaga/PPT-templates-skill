@@ -48,8 +48,9 @@ populating-office-templates/
   ├── examples/
   │   └── ppt_bp_mapping_example.json  # 数据填充 JSON 样例
   └── scripts/
-      ├── extract_placeholders.py      # 自动提取占位符路径和ID of the shape的脚本
-      └── batch_injector.py            # 执行单事务批量注入的脚本
+      ├── extract_placeholders.py      # 自动提取占位符路径和形状 ID 的脚本
+      ├── batch_injector.py            # 执行单事务批量注入的脚本
+      └── ppt_planning_agent.py        # 新增：本地 PPT 规划 Agent 脚本（一键分析并生成开发文档）
 ```
 
 > 💡 **PPT 模板资源下载**：
@@ -76,7 +77,7 @@ git clone https://github.com/ZhangJing-gugugaga/PPT-templates-skill.git populati
 
 ### 3. 后台自动化工作流 (Under the Hood)
 当您输入上述指令后，AI 助手会根据技能自动执行以下动作：
-1. **规划 (Plan)**：启动子代理精细分析模板的配色与字体规范，提炼输入文档，生成一份符合约束的 `Result/ppt_development_document.md` 逐页内容与版式匹配规划文档。
+1. **规划 (Plan)**：AI 自动运行本地规划代理 `python scripts/ppt_planning_agent.py`，物理解析模板主题色、默认字体及每一页的占位符文本，并结合商业大纲和计划书内容，自动通过大模型 API（或以零配置 Prompt Fallback 形式）智能生成 `Result/ppt_development_document.md` 逐页开发规划文档。
 2. **重构 (Reconstruct)**：基于规划的物理页面映射，自动生成页面克隆与剪切脚本，生成指定页数的干净 PPT 物理框架。
 3. **审计 (Audit)**：自动在后台运行 `scripts/extract_placeholders.py` 提取所有卡片和表格单元格的唯一物理 ID 映射。
 4. **映射 (Map)**：根据规划文档内容，自动匹配段落并生成 `Tmp/mapping.json` 数据注入包。
